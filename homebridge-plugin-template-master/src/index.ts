@@ -1,11 +1,33 @@
-import { API } from 'homebridge';
+import {
+  AccessoryConfig,
+  AccessoryPlugin,
+  API,
+  CharacteristicEventTypes,
+  CharacteristicGetCallback,
+  CharacteristicSetCallback,
+  CharacteristicValue,
+  HAP,
+  Logging,
+  Service
+} from "homebridge";
 
-import { PLATFORM_NAME } from './settings';
-import { ExampleHomebridgePlatform } from './platform';
+let hap: HAP;
+const hours = new Date().getHours;
 
-/**
- * This method registers the platform with Homebridge
- */
-export = (api: API) => {
-  api.registerPlatform(PLATFORM_NAME, ExampleHomebridgePlatform);
+export = (api: API) => {  //wird aufgerufen, wenn das plugin geladen wird
+  hap = api.hap;
+  api.registerAccessory("ExampleSwitchTimer", SwitchTimer);
 };
+
+class SwitchTimer implements AccessoryPlugin{
+
+  //private readonly hours: const; 
+  private readonly name: string;
+
+  constructor(log: Logging, config: AccessoryConfig, api: API) {
+    this.name = config.name;
+    
+  }
+
+}
+
